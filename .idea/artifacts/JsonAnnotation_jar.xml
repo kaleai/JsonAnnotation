@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="JsonAnnotation:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JsonAnnotation_jar</output-path>
+    <root id="archive" name="JsonAnnotation.jar">
+      <element id="module-output" name="JsonAnnotation" />
+    </root>
+  </artifact>
+</component>
