@@ -28,16 +28,6 @@ public class Config {
     public static Config getInstant() {
         if (config == null) {
             config = new Config();
-            
-            /*config.setFieldPrivateMode(true);
-            config.setUseSerializedName(true);
-            config.setSuffixStr("");
-            config.setResuseEntity(false);
-
-            config.setObjectFromDataStr();
-             config.setObjectFromDataStr1("Strings.objectFromObject1");
-            config.setArrayFromDataStr(, Strings.arrayFromData));
-            config.setArrayFromData1Str(, Strings.arrayFromData1));*/
         }
         return config;
     }
