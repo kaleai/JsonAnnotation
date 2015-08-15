@@ -18,6 +18,8 @@ public class JsonParserHelper {
 
     private List<InnerClassEntity> mFilterClass;
 
+    private static String tabSpaceStr = "    ";
+
     private StringBuilder mSB = new StringBuilder();
 
     public JsonParserHelper() {
@@ -34,6 +36,7 @@ public class JsonParserHelper {
     }
 
     public void parse(@NotNull String jsonStr, @NotNull String rootClassName, @NotNull ParseListener listener) {
+        mSB.append("import com.google.gson.annotations.SerializedName;\n\n");
         mSB.append("public class ").append(rootClassName).append(" {");
         JSONObject json = null;
         try {
@@ -172,13 +175,14 @@ public class JsonParserHelper {
             createSetMethod(fields, stringBuilder);
             createGetMethod(fields, stringBuilder);
         }
+        stringBuilder.append("\n");
     }
 
 
     private List<FieldEntity> createField(JSONObject json, List<String> list, StringBuilder stringBuilder) {
         List<FieldEntity> fieldEntities = new ArrayList<FieldEntity>();
         StringBuilder sb = new StringBuilder();
-        sb.append("/** \n");
+        sb.append("\n/** \n");
         for (String key : list) {
             sb.append("* ").append(key).append(" : ").append(json.get(key)).append("\n");
         }
@@ -192,11 +196,11 @@ public class JsonParserHelper {
 
             if (checkKeyWord(key)) {
                 //是关键字 使用注解
-                filedSb.append("@com.google.gson.annotations.SerializedName(\"").append(key).append("\")\n");
+                filedSb.append(tabSpaceStr).append("@SerializedName(\"").append(key).append("\")\n");
                 key = key + "X";
             } else {
                 if (Config.getInstant().isUseSerializedName()) {
-                    filedSb.append("@com.google.gson.annotations.SerializedName(\"").append(key).append("\")\n");
+                    filedSb.append(tabSpaceStr).append("@SerializedName(\"").append(key).append("\")\n");
                 }
             }
             if (Config.getInstant().isUseSerializedName()) {
@@ -204,11 +208,11 @@ public class JsonParserHelper {
             }
 
             String typeStr = typeByValue(stringBuilder, key, type);
-            // 配置是否是private
+            // 配置是否是private（生成成员变量）
             if (Config.getInstant().isFieldPrivateMode()) {
-                filedSb.append("private  ").append(typeStr).append(key).append(" ; ");
+                filedSb.append(tabSpaceStr).append("private").append(typeStr).append(key).append(";\n");
             } else {
-                filedSb.append("public  ").append(typeStr).append(key).append(" ; ");
+                filedSb.append(tabSpaceStr).append("public").append(typeStr).append(key).append(";\n");
             }
             String filedStr;
             if (i == 0) {
@@ -298,6 +302,7 @@ public class JsonParserHelper {
             createSetMethod(fields, sb);
             createGetMethod(fields, sb);
         }
+        sb.append("\n\n");
 
         InnerClassEntity innerClassEntity = new InnerClassEntity();
 //       innerClassEntity.setClassName(subClass.getName());
@@ -306,7 +311,7 @@ public class JsonParserHelper {
 
         mFilterClass.add(innerClassEntity);
 
-        sb.append("}");
+        sb.append("}\n");
     }
 
     private String createClassSubName(StringBuilder sb, String key, Object o) {
@@ -365,7 +370,7 @@ public class JsonParserHelper {
         for (FieldEntity field1 : fields) {
             String field = field1.getField();
             String typeStr = field1.getType();
-            String method = "public void  set" + captureName(field) + "( " + typeStr + " " + field + ") {   this." + field + " = " + field + ";} ";
+            String method = "public void set" + captureName(field) + "( " + typeStr + " " + field + ") {   this." + field + " = " + field + ";} ";
             sb.append(method);
         }
     }
@@ -379,11 +384,11 @@ public class JsonParserHelper {
 
             if (typeStr.equals(" boolean ")) {
 
-                String method = "public " + typeStr + "   is" + captureName(field) + "() {   return " + field + " ;} ";
+                String method = "public " + typeStr + "   is" + captureName(field) + "() {   return " + field + ";} ";
                 sb.append(method);
             } else {
 
-                String method = "public " + typeStr + "   get" + captureName(field) + "() {   return " + field + " ;} ";
+                String method = "public " + typeStr + "   get" + captureName(field) + "() {   return " + field + ";} ";
                 sb.append(method);
             }
 
