@@ -64,11 +64,7 @@ public class Json2ModelProcessor extends AbstractProcessor {
                      *  µÃµ½ÁË£ºcreate/info/user/info
                      */
                     String url = varE.getConstantValue().toString();
-                    // create/info/user/info -> create.info.user.info
-                    packageName = url.replaceAll("/", ".");
-                    if (packageName.substring(packageName.length() - 1).equals(".")) {
-                        packageName = packageName.substring(0, packageName.length() - 1);
-                    }
+                    packageName = url2packageName(url);
                 } else {
                     packageName = json2Model.packageName();
                 }
@@ -136,6 +132,20 @@ public class Json2ModelProcessor extends AbstractProcessor {
 
     private void fatalError(String msg) {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, TAG + " FATAL ERROR: " + msg);
+    }
+
+    /**
+     * /user/test/ - > user.test
+     */
+    public static String url2packageName(String url) {
+        String packageName = url.replaceAll("/", ".");
+        if (packageName.startsWith(".")) {
+            packageName = packageName.substring(1);
+        }
+        if (packageName.substring(packageName.length() - 1).equals(".")) {
+            packageName = packageName.substring(0, packageName.length() - 1);
+        }
+        return packageName;
     }
 
 }
