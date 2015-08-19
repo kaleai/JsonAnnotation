@@ -1,15 +1,15 @@
 # JsonAnnotation  
-JsonAnnotation can **speed up** Android development.It can generate Gson model class by json string.  
+JsonAnnotation can **speed up** Android development.It can generate Gson model class by json string automatically.Lets you concentrate on what's really important.    
 
 ### Demo   
-1.Copy url and jsonDemo into JsonAnnotation  
+1.Copy url and json string into JsonAnnotation  
 ![](./demo/api_json.png)  
 2.Just write a jsonModel name  
 ![](./demo/jsonModel.png)  
 3.Build the project  
 (->Make Project)  
 ![](./demo/build.png)  
-Now you can use UserInfo to do something~  
+Then you can use UserInfo to do something~  
 
 **GIF Demo**  
 Picture is big,wait a minute...  
@@ -46,12 +46,12 @@ apply plugin: 'android-apt'
 Unfortunately,Android does not(yet)understand the concept of a compile-time-only dependency, so you need to mess with your build files to make it work.  
 
 **2. Efficiency**  
-@Json2Model will run in compile-time and models are created before generate apk file.Using JsonAnnotation, developers can let it generate the plumbing code at compile time.Reflect is not in this project,you don't worry about efficiency questions.  
+@Json2Model will run in compile-time and models are created before generate apk file.Using JsonAnnotation,developers can let it generate the plumbing code at compile time.Reflect is not in this project,you needn't worry about efficiency questions.  
 
 **3. Where are models**  
 @Json2Model will create models is out of your own project.You can find theme in:  
 `app(your model name)/build/generated/source/apt/debug/...`  
-You can edit these models by edit your jsonString.  
+You should edit these models by edit your jsonString.  
 
 JsonAnnotation is less than 40kb,try it now~  
 
