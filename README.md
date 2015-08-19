@@ -1,38 +1,37 @@
-# JsonAnnotation
-- - -
-JsonAnnotation can **speed up** Android development.It can generate Gson model class by json string.
+# JsonAnnotation  
+JsonAnnotation can **speed up** Android development.It can generate Gson model class by json string.  
 
-### Demo
-1.Copy url and jsonDemo into JsonAnnotation
-![](./demo/api_json.png)
-2.Just write a jsonModel name
-![](./demo/jsonModel.png)
-3.Build the project
-(->Make Project)
-![](./demo/build.png)
-Now you can use UserInfo to do something~
+### Demo   
+1.Copy url and jsonDemo into JsonAnnotation  
+![](./demo/api_json.png)  
+2.Just write a jsonModel name  
+![](./demo/jsonModel.png)  
+3.Build the project  
+(->Make Project)  
+![](./demo/build.png)  
+Now you can use UserInfo to do something~  
 
-**GIF Demo**
-Picture is big,wait a minute...
-![](./demo/json2Model.gif)
+**GIF Demo**  
+Picture is big,wait a minute...  
+![](./demo/json2Model.gif)  
 
-### Usage
-1.Add apt
+### Usage  
+1.Add apt  
 ```
 	dependencies {
     	//...
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
     }
 ```
-2.Add apt plugin below `apply plugin: 'com.android.application'`
+2.Add apt plugin below `apply plugin: 'com.android.application'`  
 ```
 apply plugin: 'android-apt'
 ```
-3.add jsonAnnotation.jar in lib
-![](./demo/lib.png)
+3.add jsonAnnotation.jar in lib  
+![](./demo/lib.png)  
 
 
-### Question
+### Question  
 ```JAVA
 @Json2Model(modelName = "UserInfo",jsonStr = "{\n"
             + "    \"id\": 100,\n"
@@ -41,19 +40,20 @@ apply plugin: 'android-apt'
             + "    \"created_at\": \"2014-05-22 19:12:38\"\n"
             + "}")
     String SEARCH_URSER_INFO = "search/user"; // api url
-```
-**1. Why we need build project?**
-Unfortunately,Android does not(yet)understand the concept of a compile-time-only dependency, so you need to mess with your build files to make it work.
+```  
 
-**2. Efficiency **
-@Json2Model will run in compile-time and models are created before generate apk file.Using JsonAnnotation, developers can let it generate the plumbing code at compile time.Reflect is not in this project,you don't worry about efficiency questions.
+**1. Why we need build project?**  
+Unfortunately,Android does not(yet)understand the concept of a compile-time-only dependency, so you need to mess with your build files to make it work.  
 
-**3. Where are models**
+**2. Efficiency **  
+@Json2Model will run in compile-time and models are created before generate apk file.Using JsonAnnotation, developers can let it generate the plumbing code at compile time.Reflect is not in this project,you don't worry about efficiency questions.  
+
+**3. Where are models**  
 @Json2Model will create models is out of your own project.You can find theme in:
 `app(your model name)/build/generated/source/apt/debug/...`
-You can edit these models by edit your jsonString.
+You can edit these models by edit your jsonString.  
 
-JsonAnnotation is less than 40kb,try it now~
+JsonAnnotation is less than 40kb,try it now~  
 
 
 ### Developer
