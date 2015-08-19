@@ -1,4 +1,4 @@
-package kale.json.constant;
+package kale.net.json.constant;
 
 /**
  * @author Jack Tony

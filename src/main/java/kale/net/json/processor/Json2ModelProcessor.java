@@ -1,4 +1,4 @@
-package kale.json.processor;
+package kale.net.json.processor;
 
 import com.jsonformat.JsonParserHelper;
 
@@ -21,14 +21,14 @@ import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
-import kale.json.Json2Model;
-import kale.json.constant.DefaultValue;
+import kale.net.json.Json2Model;
+import kale.net.json.constant.DefaultValue;
 
 /**
  * @author Jack Tony
  * @date 2015/8/13
  */
-@SupportedAnnotationTypes({"kale.json.Json2Model"})
+@SupportedAnnotationTypes({"Json2Model"})
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class Json2ModelProcessor extends AbstractProcessor {
 

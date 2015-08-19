@@ -6,14 +6,14 @@ public class Main {
         String jsonStr;
         
         jsonStr = "{\n" +
-                "    \"name\": \"王五\",\n" +
+                "    \"name\": \"kale\",\n" +
                 "    \"gender\": \"man\",\n" +
                 "    \"age\": 15,\n" +
                 "    \"height\": \"140cm\",\n" +
                 "}";
         
         jsonStr = "{\n" +
-                "    \"name\": \"王五\",\n" +
+                "    \"name\": \"jack\",\n" +
                 "    \"gender\": \"man\",\n" +
                 "    \"age\": 15,\n" +
                 "    \"height\": \"140cm\",\n" +
@@ -62,7 +62,7 @@ public class Main {
                 + "        \"id\": 427355390,\n"
                 + "        \"buyable\": 0,\n"
                 + "        \"source_link\": \"\",\n"
-                + "        \"add_datetime\": \"8月13日 23:58\",\n"
+                + "        \"add_datetime\": \"23:58\",\n"
                 + "        \"add_datetime_pretty\": \"1小时前\",\n"
                 + "        \"add_datetime_ts\": 1439481522,\n"
                 + "        \"sender_id\": 8828896,\n"
