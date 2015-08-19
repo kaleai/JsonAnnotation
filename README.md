@@ -1,6 +1,6 @@
 # JsonAnnotation  
 JsonAnnotation can **speed up** Android development.  
-It can generate Gson model class by json string automatically and lets you concentrate on what's really important.    
+It generates gson model class by json string automatically and lets you concentrate on what's really important.    
 
 ### Demo   
 1.Copy url and json string into JsonAnnotation  
