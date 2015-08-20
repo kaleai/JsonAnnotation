@@ -1,3 +1,11 @@
+.idea/
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
 *.class
 .idea/workspace.xml
 
@@ -58,3 +66,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.idea/
+gradle.properties
