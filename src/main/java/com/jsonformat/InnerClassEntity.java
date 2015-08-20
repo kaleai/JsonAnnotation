@@ -3,10 +3,9 @@ package com.jsonformat;
 import java.util.List;
 
 /**
- * Created by qingwei on 2015/7/15.
+ * Created by qingwei on 2015/8/19.
  */
 public class InnerClassEntity {
-
     private String packName;
     private String className;
     private List<String> fields;
@@ -34,5 +33,4 @@ public class InnerClassEntity {
     public void setFields(List<String> fields) {
         this.fields = fields;
     }
-
 }
