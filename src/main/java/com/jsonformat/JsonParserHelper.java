@@ -38,64 +38,47 @@ public class JsonParserHelper {
     public void parse(@NotNull String jsonStr, @NotNull String rootClassName, @NotNull ParseListener listener) {
         mSB.append("import com.google.gson.annotations.SerializedName;\n\n");
         mSB.append("public class ").append(rootClassName).append(" {");
-        JSONObject json = null;
-        try {
-            json = new JSONObject(jsonStr);
-        } catch (Exception e) {
-            String jsonTS = filterAnnotation(jsonStr);
-            try {
-                json = new JSONObject(jsonTS);
-            } catch (Exception e2) {
-                listener.onParseError(e2);
+        jsonStr = jsonStr.trim();
+        if (jsonStr.trim().startsWith("[")) {
+            JSONArray jsonArray = new JSONArray(jsonStr);
+
+            if (jsonArray.length() > 0 && jsonArray.get(0) instanceof JSONObject) {
+                handleJsonObject(jsonArray.getJSONObject(0), listener);
             }
+        } else if (jsonStr.trim().startsWith("{")) {
+            JSONObject json = null;
+            try {
+                json = new JSONObject(jsonStr);
+            } catch (Exception e) {
+                String jsonTS = filterAnnotation(jsonStr);
+                try {
+                    json = new JSONObject(jsonTS);
+                } catch (Exception e2) {
+                    listener.onParseError(e2);
+                }
+            }
+
+            handleJsonObject(json, listener);
         }
 
+    }
+
+
+    private void handleJsonObject(JSONObject json, ParseListener listener) {
         if (json != null) {
             try {
-                //mFilterFields = initFilterField(mClass);
-                initFilterClass();
                 parseJson(json, mSB);
             } catch (Exception e2) {
                 listener.onParseError(e2);
             }
         }
-
         mKeyWordList = null;
         mFilterFields = null;
         mSB.append("}");
+
         listener.onParseComplete(mSB.toString());
     }
 
-    private void initFilterClass() {
-
-//        PsiClass[] psiClasses = this.mClass.getAllInnerClasses();
-//        for (PsiClass psiClass : psiClasses) {
-//
-//            InnerClassEntity innerClassEntity1 = new InnerClassEntity();
-//            innerClassEntity1.setClassName(psiClass.getName());
-//            innerClassEntity1.setFields(initFilterField(psiClass));
-//            innerClassEntity1.setPackName("");
-//            innerClassEntity1.setPsiClass(psiClass);
-//            recursionInnerClass(innerClassEntity1);
-//        }
-    }
-
-//    private void recursionInnerClass(InnerClassEntity innerClassEntity) {
-//        PsiClass[] innerClassｓ = innerClassEntity.getPsiClass().getInnerClasses();
-//        if (innerClassｓ.length == 0) {
-//
-//            mFilterClass.add(innerClassEntity);
-//        } else {
-//            for (PsiClass psiClass : innerClassｓ) {
-//                InnerClassEntity innerClassEntity1 = new InnerClassEntity();
-//                innerClassEntity1.setClassName(psiClass.getName());
-//                innerClassEntity1.setFields(initFilterField(psiClass));
-//                innerClassEntity1.setPsiClass(psiClass);
-//                innerClassEntity1.setPackName(innerClassEntity.getPackName() + innerClassEntity.getClassName() + ".");
-//                recursionInnerClass(innerClassEntity1);
-//            }
-//        }
-//    }
 
     public String filterAnnotation(String str) {
 
@@ -106,59 +89,61 @@ public class JsonParserHelper {
 
     }
 
-//    public List<String> initFilterField(PsiClass mClass) {
-//
-//        PsiField[] psiFields = mClass.getAllFields();
-//        ArrayList<String> filterFields = new ArrayList<String>();
-//        for (PsiField psiField : psiFields) {
-//            String psiFieldText = filterAnnotation(psiField.getText());
-//            if (psiFieldText.contains("SerializedName")) {
-//                boolean isSerializedName = false;
-//
-//                psiFieldText = psiFieldText.trim();
-//
-//                Pattern pattern = Pattern.compile("@com\\s*\\.\\s*google\\s*\\.\\s*gson\\s*\\.\\s*annotations\\s*\\.\\s*SerializedName\\s*\\(\\s*\"(\\w+)\"\\s*\\)");
-//                Matcher matcher = pattern.matcher(psiFieldText);
-//                if (matcher.find()) {
-//                    filterFields.add(matcher.group(1));
-//                    isSerializedName = true;
-//                }
-//                Pattern pattern2 = Pattern.compile("@\\s*SerializedName\\s*\\(\\s*\"(\\w+)\"\\s*\\)");
-//                Matcher matcher2 = pattern2.matcher(psiFieldText);
-//                if (matcher2.find()) {
-//                    filterFields.add(matcher2.group(1));
-//                    isSerializedName = true;
-//                }
-//                if (!isSerializedName) {
-//                    filterFields.add(psiField.getName());
-//                }
-//            } else {
-//                filterFields.add(psiField.getName());
-//            }
-//        }
-//
-//        return filterFields;
-//
-//
-//    }
 
     public void parseJson(JSONObject json, StringBuilder stringBuilder) {
-        mKeyWordList.add("default");
-        mKeyWordList.add("public");
+
+
+        //50个java 关键字
         mKeyWordList.add("abstract");
-        mKeyWordList.add("null");
+        mKeyWordList.add("assert");
+        mKeyWordList.add("boolean");
+        mKeyWordList.add("break");
+        mKeyWordList.add("byte");
+        mKeyWordList.add("case");
+        mKeyWordList.add("catch");
+        mKeyWordList.add("char");
+        mKeyWordList.add("class");
+        mKeyWordList.add("const");
+        mKeyWordList.add("continue");
+        mKeyWordList.add("default");
+        mKeyWordList.add("do");
+        mKeyWordList.add("double");
+        mKeyWordList.add("else");
+        mKeyWordList.add("enum");
+        mKeyWordList.add("extends");
         mKeyWordList.add("final");
-        mKeyWordList.add("void");
+        mKeyWordList.add("finally");
+        mKeyWordList.add("float");
+        mKeyWordList.add("for");
+        mKeyWordList.add("goto");
+        mKeyWordList.add("if");
         mKeyWordList.add("implements");
-        mKeyWordList.add("this");
+        mKeyWordList.add("import");
         mKeyWordList.add("instanceof");
+        mKeyWordList.add("int");
+        mKeyWordList.add("interface");
+        mKeyWordList.add("long");
         mKeyWordList.add("native");
         mKeyWordList.add("new");
-        mKeyWordList.add("goto");
-        mKeyWordList.add("const");
-        mKeyWordList.add("volatile");
+        mKeyWordList.add("package");
+        mKeyWordList.add("private");
+        mKeyWordList.add("protected");
+        mKeyWordList.add("public");
         mKeyWordList.add("return");
-        mKeyWordList.add("finally");
+        mKeyWordList.add("strictfp");
+        mKeyWordList.add("short");
+        mKeyWordList.add("static");
+        mKeyWordList.add("super");
+        mKeyWordList.add("switch");
+        mKeyWordList.add("synchronized");
+        mKeyWordList.add("this");
+        mKeyWordList.add("throw");
+        mKeyWordList.add("throws");
+        mKeyWordList.add("transient");
+        mKeyWordList.add("abstract");
+        mKeyWordList.add("void");
+        mKeyWordList.add("volatile");
+        mKeyWordList.add("while");
 
         Set<String> set = json.keySet();
 
@@ -168,25 +153,22 @@ public class JsonParserHelper {
                 fieldList.add(key);
             }
         }
+        InnerClassEntity classInnerClassEntity = new InnerClassEntity();
 
-        List<FieldEntity> fields = createField(json, fieldList, stringBuilder);
+        List<FieldEntity> fields = createField(classInnerClassEntity, json, fieldList, stringBuilder);
+        FieldEntity fieldEntity = new FieldEntity();
 
         if (Config.getInstant().isFieldPrivateMode()) {
-            createSetMethod(fields, stringBuilder);
+            createSetMethod(fields, stringBuilder, fieldEntity);
             createGetMethod(fields, stringBuilder);
         }
         stringBuilder.append("\n");
     }
 
 
-    private List<FieldEntity> createField(JSONObject json, List<String> list, StringBuilder stringBuilder) {
-        List<FieldEntity> fieldEntities = new ArrayList<FieldEntity>();
+    private List<FieldEntity> createField(InnerClassEntity innerClassEntity, JSONObject json, List<String> list, StringBuilder stringBuilder) {
+        List<FieldEntity> fieldEntities = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
-        sb.append("\n/** \n");
-        for (String key : list) {
-            sb.append("* ").append(key).append(" : ").append(json.get(key)).append("\n");
-        }
-        sb.append("*/ \n");
 
         for (int i = 0; i < list.size(); i++) {
 
@@ -207,7 +189,7 @@ public class JsonParserHelper {
                 key = captureStringLeaveUnderscore(key);
             }
 
-            String typeStr = typeByValue(stringBuilder, key, type);
+            String typeStr = typeByValue(innerClassEntity, stringBuilder, key, type);
             // 配置是否是private（生成成员变量）
             if (Config.getInstant().isFieldPrivateMode()) {
                 filedSb.append(tabSpaceStr).append("private").append(typeStr).append(key).append(";\n");
@@ -236,7 +218,7 @@ public class JsonParserHelper {
     }
 
 
-    private String typeByValue(StringBuilder stringBuilder, String key, Object type) {
+    private String typeByValue(InnerClassEntity innerClassEntity, StringBuilder stringBuilder, String key, Object type) {
 
         String typeStr;
         if (type instanceof Boolean) {
@@ -249,21 +231,21 @@ public class JsonParserHelper {
             typeStr = " long ";
         } else if (type instanceof String) {
             typeStr = " String ";
-        } else if (type instanceof Character) {
-            typeStr = " char ";
         } else if (type instanceof JSONObject) {
 
             typeStr = checkInnerClass((JSONObject) type);
 
             if (typeStr == null) {
-                typeStr = " " + createClassSubName(stringBuilder, key, type) + " ";
-                createClassSub(typeStr, (JSONObject) type, stringBuilder);
+                typeStr = " " + createClassSubName(innerClassEntity, stringBuilder, key, type) + " ";
+                createClassSub(innerClassEntity, typeStr, (JSONObject) type, stringBuilder);
             } else {
                 typeStr = " " + typeStr + " ";
             }
 
         } else if (type instanceof JSONArray) {
-            typeStr = " java.util.List<" + createClassSubName(stringBuilder, key, type) + "> ";
+
+            typeStr = " java.util.List<" + createClassSubName(innerClassEntity, stringBuilder, key, type) + "> ";
+
         } else {
             typeStr = " String ";
         }
@@ -272,49 +254,64 @@ public class JsonParserHelper {
 
     private String checkInnerClass(JSONObject jsonObject) {
 
-        for (InnerClassEntity innerClassEntity : mFilterClass) {
+        for (InnerClassEntity InnerClassEntity : mFilterClass) {
             Iterator<String> keys = jsonObject.keys();
 
             boolean had = true;
             while (keys.hasNext()) {
                 String key = keys.next();
-                if (!innerClassEntity.getFields().contains(key)) {
+                if (!InnerClassEntity.getFields().contains(key)) {
                     had = false;
                     break;
                 }
             }
             if (had) {
-                return innerClassEntity.getPackName() + innerClassEntity.getClassName();
+
+                if (InnerClassEntity.getPackName() != null) {
+                    return InnerClassEntity.getPackName() + "." + InnerClassEntity.getClassName();
+                } else {
+                    return InnerClassEntity.getClassName();
+                }
             }
         }
         return null;
     }
 
 
-    private void createClassSub(String className, JSONObject json, StringBuilder sb) {
-        sb.append("public static class ").append(className).append("{");
-//        PsiClass subClass = mFactory.createClassFromText(classContent, null).getInnerClasses()[0];
-        Set<String> set = json.keySet();
-        List<String> list = new ArrayList<String>(set);
+    private void createClassSub(InnerClassEntity parentC, String className, JSONObject json, StringBuilder sb) {
 
-        List<FieldEntity> fields = createField(json, list, sb);
+        sb.append("public static class ").append(className).append("{");
+        Set<String> set = json.keySet();
+        List<String> list = new ArrayList<>(set);
+
+        InnerClassEntity innerClassEntity = new InnerClassEntity();
+
+        innerClassEntity.setClassName(className);
+        if (parentC.getClassName() != null) {
+
+            if (parentC.getPackName() == null) {
+                innerClassEntity.setPackName(parentC.getClassName());
+            } else {
+                innerClassEntity.setPackName(parentC.getPackName() + "." + parentC.getClassName());
+            }
+        }
+
+
+        List<FieldEntity> fields = createField(innerClassEntity, json, list, sb);
         if (Config.getInstant().isFieldPrivateMode()) {
-            createSetMethod(fields, sb);
+            createSetMethod(fields, sb, null);
             createGetMethod(fields, sb);
         }
         sb.append("\n\n");
-
-        InnerClassEntity innerClassEntity = new InnerClassEntity();
-//       innerClassEntity.setClassName(subClass.getName());
-//        innerClassEntity.setPackName(mClass.getName()+".");
         innerClassEntity.setFields(list);
 
         mFilterClass.add(innerClassEntity);
 
+
         sb.append("}\n");
     }
 
-    private String createClassSubName(StringBuilder sb, String key, Object o) {
+    private String createClassSubName(InnerClassEntity innerClassEntity, StringBuilder sb, String key, Object o) {
 
         String name = "";
         if (o instanceof JSONObject) {
@@ -334,18 +331,43 @@ public class JsonParserHelper {
             JSONArray jsonArray = (JSONArray) o;
             if (jsonArray.length() > 0) {
                 Object item = jsonArray.get(0);
-                name = typeByValue(sb, key, item);
+                name = listTypeByValue(innerClassEntity, sb, key, item);
             } else {
                 name = "?";
             }
         }
         return name;
-
     }
 
+    private String listTypeByValue(InnerClassEntity innerClassEntity, StringBuilder stringBuilder, String key, Object type) {
+
+        String typeStr;
+
+
+        if (type instanceof JSONObject) {
+
+            typeStr = checkInnerClass((JSONObject) type);
+            if (typeStr == null) {
+                typeStr = createClassSubName(innerClassEntity, stringBuilder, key, type);
+                createClassSub(innerClassEntity, typeStr, (JSONObject) type, stringBuilder);
+            }
+
+        } else if (type instanceof JSONArray) {
+            typeStr = " java.util.List<" + createClassSubName(innerClassEntity, stringBuilder, key, type) + "> ";
+        } else {
+
+
+            typeStr = type.getClass().getSimpleName();
+
+
+        }
+        return typeStr;
+    }
 
     public String captureName(String name) {
-
+        if (name.length() == 0) {
+            return "";
+        }
         name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
         return name;
@@ -355,18 +377,19 @@ public class JsonParserHelper {
         if (str == null || "".equals(str)) {
             return str;
         }
+
+        str = str.replaceAll("^_+", "");
         String[] strings = str.split("_");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(strings[0]);
         for (int i = 1; i < strings.length; i++) {
             stringBuilder.append(captureName(strings[i]));
         }
-
         return stringBuilder.toString();
 
     }
 
-    private void createSetMethod(List<FieldEntity> fields, StringBuilder sb) {
+    private void createSetMethod(List<FieldEntity> fields, StringBuilder sb, FieldEntity fieldEntity) {
         for (FieldEntity field1 : fields) {
             String field = field1.getField();
             String typeStr = field1.getType();
@@ -392,13 +415,7 @@ public class JsonParserHelper {
                 sb.append(method);
             }
 
-
         }
-
     }
-//    private void createMethod(String method, PsiClass cla) {
-//
-//        cla.add(mFactory.createMethodFromText(method, cla));
-//
-//    }
+
 }

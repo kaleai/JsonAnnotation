@@ -17,7 +17,7 @@ public class Config {
     private String suffixStr = "";
 
     // ∏¥”√entity
-    private boolean resuseEntity = false;
+    private boolean reuseEntity = false;
 
     private Config() {
 
