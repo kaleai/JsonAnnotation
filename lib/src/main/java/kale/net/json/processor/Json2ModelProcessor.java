@@ -58,17 +58,19 @@ public class Json2ModelProcessor extends AbstractProcessor {
                      *  String GET_USER_INFO = "create/info/user/info"; 
                      *  result:create/info/user/info
                      */
+                    if (varE.getConstantValue() == null) {
+                        fatalError("jsonStr couldn't be final");
+                    }
                     String url = varE.getConstantValue().toString();
                     packageName = url2packageName(url);
                 } else {
                     // has custom package name
                     packageName = json2Model.packageName();
                 }
-                
                 if (json2Model.jsonStr() == null || json2Model.jsonStr().equals("")) {
                     fatalError("json string is null");
                 }
-                
+
                 final String clsName = json2Model.modelName();
 
                 JsonParserHelper helper = new JsonParserHelper();
@@ -117,14 +119,8 @@ public class Json2ModelProcessor extends AbstractProcessor {
     }
 
     private void log(String msg) {
-        if (processingEnv.getOptions().containsKey("debug")) {
-            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, TAG + msg);
-        }
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, TAG + msg);
     }
-
-    /*private void error(String msg, Element element, AnnotationMirror annotation) {
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, TAG + msg, element, annotation);
-    }*/
 
     private void fatalError(String msg) {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, TAG + " FATAL ERROR: " + msg);
