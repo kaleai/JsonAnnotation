@@ -30,6 +30,7 @@ apply plugin: 'android-apt'
 ```
 3.add jsonAnnotation.jar in lib  
 ![](./demo/lib.png)  
+jar:
 
 
 ### Question  
@@ -52,6 +53,7 @@ Unfortunately,Android does not(yet)understand the concept of a compile-time-only
 **3. Where are models**  
 @Json2Model will create models is out of your own project.You can find theme in:  
 `app(your model name)/build/generated/source/apt/debug/...`  
+![](./demo/model.png)  
 You should edit these models by edit your jsonString.  
 
 JsonAnnotation is less than 40kb,try it now~  
