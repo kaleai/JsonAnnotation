@@ -30,7 +30,8 @@ apply plugin: 'android-apt'
 ```
 3.add jsonAnnotation.jar in lib  
 ![](./demo/lib.png)  
-jar:
+
+Download Jar:[https://github.com/tianzhijiexian/JsonAnnotation/blob/master/lib/build/libs/lib.jar](https://github.com/tianzhijiexian/JsonAnnotation/blob/master/lib/build/libs/lib.jar)
 
 
 ### Question  
