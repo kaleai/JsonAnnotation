@@ -30,7 +30,8 @@ apply plugin: 'android-apt'
 ```
 3.add jsonAnnotation.jar in lib  
 ![](./demo/lib.png)  
-jar:
+
+Download Jar:[https://github.com/tianzhijiexian/JsonAnnotation/blob/master/lib/build/libs/lib.jar](https://github.com/tianzhijiexian/JsonAnnotation/blob/master/lib/build/libs/lib.jar)
 
 
 ### Question  
@@ -63,7 +64,7 @@ JsonAnnotation is less than 40kb,try it now~
 ![](https://avatars3.githubusercontent.com/u/9552155?v=3&s=460)  
 Jack Tony: <developer_kale@.com>  
 ![](https://avatars2.githubusercontent.com/u/5378647?v=3&s=200)  
-wyh: 405003836@126.com  
+zzz40500： <wyh405003836@126.com>  
 
 ### License
 
