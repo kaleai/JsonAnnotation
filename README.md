@@ -60,10 +60,10 @@ JsonAnnotation is less than 40kb,try it now~
 
 
 ### Developer
-![](https://avatars3.githubusercontent.com/u/9552155?v=3&s=460)
-
-Jack Tony: <developer_kale@.com>
-
+![](https://avatars3.githubusercontent.com/u/9552155?v=3&s=460)  
+Jack Tony: <developer_kale@.com>  
+![](https://avatars2.githubusercontent.com/u/5378647?v=3&s=200)  
+wyh: 405003836@126.com  
 
 ### License
 

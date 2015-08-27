@@ -19,9 +19,9 @@ public class JsonParserHelper {
     private StringBuilder mSB = new StringBuilder();
 
     public JsonParserHelper() {
-        mKeyWordList = new ArrayList<String>();
-        mFilterFields = new ArrayList<String>();
-        mFilterClass = new ArrayList<InnerClassEntity>();
+        mKeyWordList = new ArrayList<>();
+        mFilterFields = new ArrayList<>();
+        mFilterClass = new ArrayList<>();
     }
 
     public interface ParseListener {
@@ -161,7 +161,7 @@ public class JsonParserHelper {
 
         Set<String> set = json.keySet();
 
-        List<String> fieldList = new ArrayList<String>();
+        List<String> fieldList = new ArrayList<>();
         for (String key : set) {
             if (!mFilterFields.contains(key)) {
                 fieldList.add(key);
@@ -181,7 +181,7 @@ public class JsonParserHelper {
 
 
     private List<FieldEntity> createField(InnerClassEntity innerClassEntity, JSONObject json, List<String> list, StringBuilder stringBuilder) {
-        List<FieldEntity> fieldEntities = new ArrayList<FieldEntity>();
+        List<FieldEntity> fieldEntities = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < list.size(); i++) {
@@ -297,7 +297,7 @@ public class JsonParserHelper {
 
         sb.append("public static class ").append(className).append("{");
         Set<String> set = json.keySet();
-        List<String> list = new ArrayList<String>(set);
+        List<String> list = new ArrayList<>(set);
 
         InnerClassEntity innerClassEntity = new InnerClassEntity();
 
