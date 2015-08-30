@@ -17,7 +17,7 @@ Picture is big,wait a minute...
 ![](./demo/json2Model.gif)  
 
 ### Usage  
-1.Add apt  
+1.Add apt in **project's build.gradle**  
 ```
 	dependencies {
     	//...
