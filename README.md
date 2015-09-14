@@ -60,6 +60,7 @@ You should edit these models by edit your jsonString.
 
 JsonAnnotation is less than 40kb,try it now~  
 
+similar project: [https://projectlombok.org/][https://projectlombok.org/]
 
 ### Developer
 ![](https://avatars3.githubusercontent.com/u/9552155?v=3&s=460)  
