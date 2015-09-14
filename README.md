@@ -18,6 +18,7 @@ Picture is big,wait a minute...
 
 ### Usage  
 1.Add apt in **project's build.gradle**  
+[apt][https://bitbucket.org/hvisser/android-apt]
 ```
 	dependencies {
     	//...
