@@ -64,7 +64,7 @@ similar project: [https://projectlombok.org/]
 
 ### Developer
 ![](https://avatars3.githubusercontent.com/u/9552155?v=3&s=460)  
-Jack Tony: <developer_kale@.com>  
+Jack Tony: <developer_kale@qq.com>  
 ![](https://avatars2.githubusercontent.com/u/5378647?v=3&s=200)  
 zzz40500： <wyh405003836@126.com>  
 
